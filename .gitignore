@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Node
+node_modules/
+dist/
+
+# Java
+*.class
+*.jar
+*.war
+*.iml
+
+# Environment
+.env
+.env.local
+copy-nest-firebase-adminsdk-fbsvc-b66c81829d.json

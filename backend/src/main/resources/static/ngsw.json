@@ -1,0 +1,108 @@
+{
+  "configVersion": 1,
+  "timestamp": 1744490087229,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/chunk-5H3VWYL3.js",
+        "/chunk-D5XV2FOO.js",
+        "/chunk-MG3ERZGY.js",
+        "/chunk-R7MMVOFE.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-PGHFGCUC.js",
+        "/manifest.webmanifest",
+        "/offline.html",
+        "/polyfills-FFHMD2TL.js",
+        "/styles-DVPUYKUT.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "public",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/apple-touch-icon.png",
+        "/favicon-96x96.png",
+        "/favicon.svg",
+        "/web-app-manifest-192x192.png",
+        "/web-app-manifest-512x512.png"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "public-offline",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-cache",
+      "patterns": [
+        "https:\\/\\/your-api\\.com\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 50,
+      "maxAge": 86400000,
+      "timeoutMs": 10000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/apple-touch-icon.png": "e46b1e8ca10d4253b6cdfedd8866cf263db64255",
+    "/chunk-5H3VWYL3.js": "5483739e1a2e0da65bfa9e62c258615c49595ee0",
+    "/chunk-D5XV2FOO.js": "0761536b06d49ed8f12f6449a767634c38b769bd",
+    "/chunk-MG3ERZGY.js": "86e7eabee960bc32d69c21b03224020787d6c09a",
+    "/chunk-R7MMVOFE.js": "ab058d3bdfc7030703bbf1d664590e4d53aec850",
+    "/favicon-96x96.png": "c97fa2d2e6f282e1749efcf68dd2da02b2eb0487",
+    "/favicon.ico": "44a6cff47148ab61f3abc51d232e7446e070f503",
+    "/favicon.svg": "8c7bf903892c2ff619660abd32a9c65e974dd14d",
+    "/index.html": "1fa082c79ec6a76b4e1335c8e53bd3081f92491d",
+    "/main-PGHFGCUC.js": "90e72b29953d58d118a1980ff05e1e8697161b89",
+    "/manifest.webmanifest": "381745ce91747492efef012fee26d5748b00e397",
+    "/offline.html": "80c3841386256d4ef68ed98b7f1da5cd475070c5",
+    "/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
+    "/styles-DVPUYKUT.css": "e356b4f10901e49b88ed3e061cde76e8a45677ac",
+    "/web-app-manifest-192x192.png": "42bf5316bfde199960b7be2531f5634a7470c029",
+    "/web-app-manifest-512x512.png": "9f08b2a805d71122fd278577109ccd6a3584184c"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
