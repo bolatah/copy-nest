@@ -2,109 +2,38 @@
 <project
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.4</version>
-		<relativePath /> 
-	</parent>
-	<groupId>com.copynest</groupId>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.copynest</groupId>
 	<artifactId>copynest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CopyNest</name>
-	<description
-  > An application to store and manage copied text snippets with titles.</description>
-	<url />
-	    <packaging>jar</packaging>
-	<licenses>
-		<license />
-	</licenses>
-	<developers>
-		<developer />
-	</developers>
-	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
-	</scm>
-	<properties>
-		<java.version>21</java.version>
-		<spring-ai.version>1.0.0-M6</spring-ai.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<dependency>
-  			<groupId>com.google.firebase</groupId>
-  			<artifactId>firebase-admin</artifactId>
-  			<version>9.4.3</version>
-		</dependency>
-		<dependency>
-    		<groupId>javax.servlet</groupId>
-    		<artifactId>javax.servlet-api</artifactId>
-    		<version>4.0.1</version>  
-    		<scope>provided</scope>
-		</dependency>
-		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-devtools</artifactId>
-    		<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-	 	<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-<build>
-	<plugins>
-		<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-			    <configuration>
-                <mainClass>com.copynest.app.CopyNestApplication</mainClass>
-            </configuration>
-		</plugin>
-		    <!-- Plugin to copy Angular dist to Spring Boot static -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.3.0</version>
-            <executions>
-                <execution>
-                    <id>copy-angular</id>
-                    <phase>process-resources</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
+    <modules>
+        <module>backend</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
                     <configuration>
-                        <outputDirectory>${project.basedir}backend/src/main/resources/static</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>${project.basedir}/frontend-angular/dist/copy-nest/browser</directory>
-                                <filtering>false</filtering>
-                            </resource>
-                        </resources>
+                        <source>11</source>
+                        <target>11</target>
                     </configuration>
-                </execution>
-            </executions>
-        </plugin>
-	</plugins>
-</build>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
+    <dependencyManagement>
+        <dependencies>
+        </dependencies>
+    </dependencyManagement>
 </project>
