@@ -18,6 +18,7 @@
 	<description
   > An application to store and manage copied text snippets with titles.</description>
 	<url />
+	    <packaging>jar</packaging>
 	<licenses>
 		<license />
 	</licenses>
@@ -75,6 +76,9 @@
 		<plugin>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
+			    <configuration>
+                <mainClass>com.copynest.app.CopyNestApplication</mainClass>
+            </configuration>
 		</plugin>
 		    <!-- Plugin to copy Angular dist to Spring Boot static -->
         <plugin>
