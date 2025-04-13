@@ -8,14 +8,12 @@
 	<parent>
 		<groupId>com.copynest</groupId>
 		<artifactId>copynest</artifactId>
-		  <version>1.0-SNAPSHOT</version>
-	 <relativePath>../pom.xml</relativePath>
+		<version>1.0-SNAPSHOT</version>
+	 	<relativePath>../pom.xml</relativePath>
 	</parent>
-	<name>CopyNest</name>
-	<description
-  > An application to store and manage copied text snippets with titles.</description>
-	<url />
-	    <packaging>jar</packaging>
+	<name>CopyNestBackendWeb</name>
+	<artifactId>copynest-backend-web</artifactId>
+	<packaging>jar</packaging>
 	<licenses>
 		<license />
 	</licenses>

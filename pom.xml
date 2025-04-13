@@ -7,7 +7,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.copynest</groupId>
+	<name>CopyNest</name>
 	<artifactId>copynest</artifactId>
+	<description
+  > An application to store and manage copied text snippets with titles.</description>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
