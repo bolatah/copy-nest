@@ -3,26 +3,37 @@ package com.copynest.app.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-
-@Configuration
+@Component
 public class FirebaseAdminConfig {
 
     @Value("${firebase.credentials.path}")
-    private Resource firebaseCredentials;
+    private Resource firebaseCredentialsResource;
 
     @PostConstruct
     public void initFirebase() {
-        try (InputStream serviceAccount = firebaseCredentials.getInputStream()) {
+        try {
+            InputStream credentialsStream;
+
+            String configJson = System.getenv("CONFIG_JSON");
+
+            if (configJson != null && !configJson.isBlank()) {
+                System.out.println("🌐 Using Firebase credentials from CONFIG_JSON environment variable.");
+                credentialsStream = new ByteArrayInputStream(configJson.getBytes());
+            } else {
+                System.out.println("📁 Using Firebase credentials from application.properties file path.");
+                credentialsStream = firebaseCredentialsResource.getInputStream();
+            }
+
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setCredentials(GoogleCredentials.fromStream(credentialsStream))
                     .build();
 
             if (FirebaseApp.getApps().isEmpty()) {
