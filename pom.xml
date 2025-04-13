@@ -89,10 +89,10 @@
                         <goal>copy-resources</goal>
                     </goals>
                     <configuration>
-                        <outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
+                        <outputDirectory>${project.basedir}backend/src/main/resources/static</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>${project.basedir}/../frontend-angular/dist/copy-nest/browser</directory>
+                                <directory>${project.basedir}/frontend-angular/dist/copy-nest/browser</directory>
                                 <filtering>false</filtering>
                             </resource>
                         </resources>
