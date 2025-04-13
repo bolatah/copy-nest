@@ -24,8 +24,9 @@
             	<plugin>
 			          <groupId>org.springframework.boot</groupId>
 		          	<artifactId>spring-boot-maven-plugin</artifactId>
+                   <version>3.4.4</version>
 			          <configuration>
-                  <mainClass>com.copynest.app.CopyNestApplication</mainClass>
+                        <skip>true</skip>
                 </configuration>
 	          	</plugin>
               <plugin>
