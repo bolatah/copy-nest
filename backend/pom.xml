@@ -77,6 +77,18 @@
             </configuration>
 		</plugin>
 		    <!-- Plugin to copy Angular dist to Spring Boot static -->
+		        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Main-Class>com.copynest.app.CopyNestApplication</Main-Class> <!-- Replace with your main class -->
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
