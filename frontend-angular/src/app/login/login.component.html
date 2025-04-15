@@ -1,8 +1,5 @@
-
-
-
 <div class="flex flex-col items-center justify-center min-h-screen px-4 py-8 bg-gray-50">
-    <img src="favicon.svg" alt="nest" width="100rem"  height="100rem">
+    <img src="favicon.svg" alt="nest" width="100rem" height="100rem">
     @switch(authMode) {
     @case('signIn') {
     <h2 class="text-2xl font-bold mb-4 text-gray-800">Sign in to Copy Nest</h2>
@@ -102,4 +99,8 @@
         <p class="text-red-600 text-sm mt-2 text-center">{{ loginError }}</p>
         }
     </form>
+    <p class="text-sm text-center mt-4">
+        By signing in, you agree to our
+        <a [routerLink]="'/privacy-policy'" class="text-blue-600 underline">Privacy Policy</a>
+    </p>
 </div>
