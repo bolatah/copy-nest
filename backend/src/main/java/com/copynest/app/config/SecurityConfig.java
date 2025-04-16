@@ -28,10 +28,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> allowedOrigins = Arrays.asList(
-                "http://localhost:4200", // Angular dev server
-                "http://192.168.1.100:4200", // Replace with your PC IP (accessed from device)
-                "http://10.0.2.2:4200", // Android Emulator
-                "capacitor://localhost" // If wrapped with Capacitor
+            "http://localhost:4200",             // Angular dev server on local machine
+            "http://192.168.159.197:4200",       // Accessing Angular dev server from mobile device
+            "http://192.168.159.197:8800",       // Accessing built Angular app from mobile (if served on 8800)
+            "http://10.0.2.2:4200",              // Android Emulator (maps to host)
+            "capacitor://localhost"             // Capacitor WebView
         );
         configuration.setAllowedOrigins(allowedOrigins);
 
