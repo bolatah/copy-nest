@@ -32,7 +32,8 @@ public class SecurityConfig {
             "http://192.168.159.197:4200",       // Accessing Angular dev server from mobile device
             "http://192.168.159.197:8800",       // Accessing built Angular app from mobile (if served on 8800)
             "http://10.0.2.2:4200",              // Android Emulator (maps to host)
-            "capacitor://localhost"             // Capacitor WebView
+            "capacitor://localhost"             // Capacitor WebView,
+            "https://localhost"                  // Required for secure origin on physical Android device
         );
         configuration.setAllowedOrigins(allowedOrigins);
 
