@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1744725998691,
+  "timestamp": 1745010011761,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -17,11 +17,11 @@
         "/chunk-R7MMVOFE.js",
         "/favicon.ico",
         "/index.html",
-        "/main-RHITTHLQ.js",
+        "/main-KWFH6RA3.js",
         "/manifest.webmanifest",
         "/offline.html",
         "/polyfills-FFHMD2TL.js",
-        "/styles-VGXGKVWW.css"
+        "/styles-C7MYOWCO.css"
       ],
       "patterns": []
     },
@@ -40,28 +40,18 @@
         "/web-app-manifest-512x512.png"
       ],
       "patterns": []
-    },
-    {
-      "name": "public-offline",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "urls": [],
-      "patterns": []
     }
   ],
   "dataGroups": [
     {
       "name": "api-cache",
       "patterns": [
-        "https:\\/\\/your-api\\.com\\/.*"
+        "https:\\/\\/copy-nest-56e1ca9f4c40\\.herokuapp\\.com\\/api\\/nests"
       ],
       "strategy": "performance",
       "maxSize": 50,
       "maxAge": 86400000,
-      "timeoutMs": 10000,
+      "timeoutMs": 30000,
       "cacheQueryOptions": {
         "ignoreVary": true
       },
@@ -77,12 +67,12 @@
     "/favicon-96x96.png": "c97fa2d2e6f282e1749efcf68dd2da02b2eb0487",
     "/favicon.ico": "44a6cff47148ab61f3abc51d232e7446e070f503",
     "/favicon.svg": "8c7bf903892c2ff619660abd32a9c65e974dd14d",
-    "/index.html": "21f07359a29b2d7b4b6d9e74f033731dbf320e24",
-    "/main-RHITTHLQ.js": "c11fbd992cde11efb08a205812cd1faa614ac60f",
+    "/index.html": "53f4eb901bdf11348771bfaf4fd533689714ade3",
+    "/main-KWFH6RA3.js": "b721c864822bf8fef1cb9731e44e776f733b08b1",
     "/manifest.webmanifest": "381745ce91747492efef012fee26d5748b00e397",
     "/offline.html": "80c3841386256d4ef68ed98b7f1da5cd475070c5",
     "/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
-    "/styles-VGXGKVWW.css": "cde921dc7ff0c0e78117eb7e5c0b226de8ab03b4",
+    "/styles-C7MYOWCO.css": "f0b59301fbbe5e16526de30b7ffeb2647eee555e",
     "/web-app-manifest-192x192.png": "42bf5316bfde199960b7be2531f5634a7470c029",
     "/web-app-manifest-512x512.png": "9f08b2a805d71122fd278577109ccd6a3584184c"
   },
