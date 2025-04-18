@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
-import { LoginComponent } from "./login/login.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { SwUpdate } from '@angular/service-worker';
 @Component({
   selector: 'app-root',
@@ -10,15 +10,12 @@ import { LoginComponent } from "./login/login.component";
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'copy-nest';
-
-  constructor(private router: Router) {
+  constructor(private router: Router , private matSnack : MatSnackBar) {
     window.addEventListener('offline', () => {
-      this.router.navigate(['/offline']);
-    });
-
-    window.addEventListener('online', () => {
-      this.router.navigate(['/login']);
+      this.matSnack.open('You are offline. Please check your internet connection.', 'Close', {
+        duration: 5000,
+        panelClass: ['snackbar-offline'],
+      });
     });
   }
 }

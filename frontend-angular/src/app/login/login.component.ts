@@ -24,6 +24,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {
+    
     this.createForm();
   }
 

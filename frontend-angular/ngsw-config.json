@@ -26,25 +26,17 @@
           "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
-    }, 
-    {
-      "name": "public-offline",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "resources": {
-        "files": ["/offline.html"]
-      }
     }
   ],
   "dataGroups": [
     {
       "name": "api-cache",
-      "urls": ["https://your-api.com/**"],
+      "urls": ["https://copy-nest-56e1ca9f4c40.herokuapp.com/api/nests"],
       "cacheConfig": {
         "strategy": "performance",
         "maxSize": 50,
         "maxAge": "1d",
-        "timeout": "10s"
+        "timeout": "30s"
       }
     }
   ]

@@ -52,7 +52,8 @@ export class NestContentComponent implements OnChanges {
       this.content = this.nest.content;
     }
   }
-
+ 
+  
   saveNest() {
     if (!this.title.trim()) {
       this.snackBar.open('Please fill in the required fields.', 'Close', {
