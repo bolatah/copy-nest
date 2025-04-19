@@ -29,7 +29,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> allowedOrigins = Arrays.asList(
                 "http://localhost:4200", // Angular dev server on local machine
-                "http://localhost:8800", // Built Angular app on local machine
+                "http://localhost:8080", // Built Angular app on local machine
                 "http://192.168.159.197:4200", // Accessing Angular dev server from mobile device
                 "http://192.168.159.197:8800", // Accessing built Angular app from mobile (if served on 8800)
                 "http://10.0.2.2:4200", // Android Emulator (maps to host)
