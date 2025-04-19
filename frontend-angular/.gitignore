@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 environment.ts
 environment.prod.ts
+capacitor.config.ts
+android

@@ -66,6 +66,7 @@ public class SecurityConfig {
                                 "/*.css",
                                 "/*.woff2", "/*.woff", "/*.ttf", "/*.eot",
                                 "/manifest.json",
+                                "/manifest.webmanifest",
                                 "*.webmanifest",
                                 "/ngsw.json",    
                                 "/ngsw-worker.js",
