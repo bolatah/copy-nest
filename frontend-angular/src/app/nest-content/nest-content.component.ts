@@ -99,8 +99,8 @@ export class NestContentComponent implements OnChanges {
 adjustEditorHeight(event: any): void {
   const editorElem = event.editor?.root;
   if (editorElem) {
-    editorElem.style.height = 'auto'; // Reset height
-    editorElem.style.height = editorElem.scrollHeight + 'px'; // Adjust to fit content
+    editorElem.style.height = 'auto';
+    editorElem.style.height = editorElem.scrollHeight + 'px'; 
   }
 }
 }

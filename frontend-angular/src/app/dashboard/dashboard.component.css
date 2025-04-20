@@ -3,18 +3,20 @@
 }  
   */
 
+
 input {
   border: none;
   background: none;
- 
+
 }
+
 .selected-nest {
-  background-color: #3b82f6; 
-  color: white; 
+  background-color: #3b82f6;
+  color: white;
 }
 
 .selected-nest:hover {
-  background-color: #60a5fa; /* Lighter blue background on hover */
+  background-color: #60a5fa;
 }
 
 .list-item {
@@ -24,10 +26,9 @@ input {
 }
 
 .list-item:hover {
-  background-color: #f3f4f6; /* Light grey hover background */
+  background-color: #f3f4f6;
 }
 
-.mat-mdc-text-field-wrapper mdc-text-field mdc-text-field--filled{
+.mat-mdc-text-field-wrapper mdc-text-field mdc-text-field--filled {
   background-color: transparent;
 }
-

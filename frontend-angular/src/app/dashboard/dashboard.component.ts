@@ -22,10 +22,12 @@ import {
   combineLatest,
   debounceTime,
   distinctUntilChanged,
+  filter,
   map,
   Observable,
   startWith,
   switchMap,
+  take,
 } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { NestContentComponent } from '../nest-content/nest-content.component';
@@ -84,14 +86,17 @@ export class DashboardComponent {
         );
       })
     );
-
-    this.nestService.nests$
-      .pipe(map((nests) => nests[0]))
-      .subscribe((firstNest) => {
-        if (firstNest) {
+    if (!this.selectedNest$.value) {
+      this.nestService.nests$
+        .pipe(
+          filter(nests => nests.length > 0),
+          take(1),
+          map(nests => nests[0])
+        )
+        .subscribe((firstNest) => {
           this.setActiveNest(firstNest);
-        }
-      });
+        });
+    }
   }
   ngAfterViewInit(): void {
     window.addEventListener('resize', () => {
