@@ -6,6 +6,7 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import {
   FormControl,
@@ -38,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class NestContentComponent implements OnChanges {
   @Input() nest: Nest | null = null;
   @Output() nestChanged = new EventEmitter<Nest>();
+  @ViewChild('editorRef') editorComponent: any;
   title: string = '';
   content: string = '';
 
@@ -92,4 +94,13 @@ export class NestContentComponent implements OnChanges {
     } 
   
   }
+
+
+adjustEditorHeight(event: any): void {
+  const editorElem = event.editor?.root;
+  if (editorElem) {
+    editorElem.style.height = 'auto'; // Reset height
+    editorElem.style.height = editorElem.scrollHeight + 'px'; // Adjust to fit content
+  }
+}
 }

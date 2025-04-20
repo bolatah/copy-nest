@@ -3,7 +3,7 @@
   <form class="flex flex-col gap-4" (ngSubmit)="saveNest()" autocomplete="off">
     <input [(ngModel)]="title" name="title" required inputmode="text" placeholder="Title"
       class="px-4 py-2 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-500 shadow-sm transition duration-200" />
-    <quill-editor [(ngModel)]="content" name="content" [styles]="{ height: '200px' }"></quill-editor>
+      <quill-editor [(ngModel)]="content" name="content" (onContentChanged)="adjustEditorHeight($event)"  [styles]="{ minHeight: '200px' }"></quill-editor>
     <button type="submit" [disabled]="!title.trim()" title="Update Nest"
       class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold rounded-xl shadow-md transition duration-200 ease-in-out text-lg">
       <mat-icon class="text-white text-2xl">edit</mat-icon>

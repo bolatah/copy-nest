@@ -1,15 +1,16 @@
-/*   * {
+   * {
   outline: 1px solid red;
 }  
- */
+ 
+
 input {
   border: none;
   background: none;
  
 }
 .selected-nest {
-  background-color: #3b82f6; /* Blue background for selected item */
-  color: white; /* White text for selected item */
+  background-color: #3b82f6; 
+  color: white; 
 }
 
 .selected-nest:hover {
@@ -29,3 +30,4 @@ input {
 .mat-mdc-text-field-wrapper mdc-text-field mdc-text-field--filled{
   background-color: transparent;
 }
+

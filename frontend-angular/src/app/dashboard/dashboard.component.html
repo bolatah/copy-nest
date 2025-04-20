@@ -20,11 +20,9 @@
 <button mat-icon-button (click)="sidenav.toggle()">
   <mat-icon class="!text-black text-xl">menu</mat-icon>
 </button>
-<mat-sidenav-container>
-
+<mat-sidenav-container class="hide-scrollbar h-screen">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="w-64 px-2">
     <mat-nav-list>
-
       <h2 class="text-center font-bold my-4">My Nests ({{ (filteredNests$ | async)?.length }})</h2>
       @for (nest of filteredNests$ | async; track nest.id) {
       <mat-list-item [ngClass]="{
@@ -32,8 +30,7 @@
         'list-item': true
       }" (click)="setActiveNest(nest); $event.stopPropagation()">
         <div class="flex items-center justify-between w-full px-2 py-3">
-          <span>{{ nest.title }}</span>
-
+          <span class="truncate max-w-[160px] inline-block align-bottom" [title]="nest.title">{{ nest.title }}</span>
           <button mat-icon-button [matMenuTriggerFor]="menu" (click)="setActiveNest(nest); $event.stopPropagation()">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -42,7 +39,6 @@
       }
     </mat-nav-list>
   </mat-sidenav>
-
   <mat-sidenav-content class="p-4">
 
     <app-nest-content [nest]="selectedNest$ | async" (nestChanged)="onNestChanged($event)"></app-nest-content>
