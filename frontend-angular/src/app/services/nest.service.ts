@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 
 export interface Nest {
   id?: string;
@@ -17,18 +18,20 @@ export class NestService {
   private nestsSubject = new BehaviorSubject<Nest[]>([]);
   public nests$ = this.nestsSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.getAllNests().subscribe((nests) => {
-      this.nestsSubject.next(nests);
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.authService.user$.subscribe((user) => {
+      if (user) {
+        this.getAllNests().subscribe((nests) => {
+          this.nestsSubject.next(nests.reverse());
+        });
+      } else {
+        this.nestsSubject.next([]);
+      }
     });
   }
 
   getAllNests(): Observable<Nest[]> {
-    return this.http.get<Nest[]>(this.apiUrl).pipe(
-      tap((nests) => {
-        this.nestsSubject.next(nests.reverse());
-      })
-    );
+    return this.http.get<Nest[]>(this.apiUrl);
   }
 
   getNestById(id: string): Observable<Nest> {
@@ -38,7 +41,7 @@ export class NestService {
   createNest(nest: Nest): Observable<Nest> {
     return this.http.post<Nest>(this.apiUrl, nest).pipe(
       tap((newNest) => {
-        this.nestsSubject.next([ newNest, ...this.nestsSubject.getValue()]);
+        this.nestsSubject.next([newNest, ...this.nestsSubject.getValue()]);
       })
     );
   }

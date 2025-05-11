@@ -26,13 +26,11 @@ import {
   map,
   Observable,
   startWith,
-  switchMap,
   take,
 } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { NestContentComponent } from '../nest-content/nest-content.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-dashboard',
   imports: [
@@ -63,7 +61,6 @@ export class DashboardComponent {
   constructor(
     private nestService: NestService,
     private authService: AuthService,
-    private dialog: MatDialog,
     private router: Router
   ) {}
 
@@ -82,16 +79,17 @@ export class DashboardComponent {
       map(([nests, query]) => {
         if (!query) return nests;
         return nests.filter((nest) =>
-          nest.title.toLowerCase().includes(query.trim().toLowerCase())
+          nest.title.toLowerCase().includes(query.trim())
         );
       })
     );
+
     if (!this.selectedNest$.value) {
       this.nestService.nests$
         .pipe(
-          filter(nests => nests.length > 0),
+          filter((nests) => nests.length > 0),
           take(1),
-          map(nests => nests[0])
+          map((nests) => nests[0])
         )
         .subscribe((firstNest) => {
           this.setActiveNest(firstNest);
@@ -141,6 +139,7 @@ export class DashboardComponent {
 
   logout() {
     this.authService.logout();
+    this.selectedNest$.next(null);
     this.router.navigate(['/login']);
   }
 }

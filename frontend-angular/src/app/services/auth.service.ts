@@ -1,39 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _user: firebase.User | null = null;
+  private userSubject$ = new BehaviorSubject<firebase.User | null>(null);
+  public user$ = this.userSubject$.asObservable();
 
-  constructor(private afAuth: AngularFireAuth) {}
+  constructor(private afAuth: AngularFireAuth) {
+    this.initAuth()
+  }
 
   loginWithGoogle(): Promise<any> {
     return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   logout(): Promise<any> {
+    this.userSubject$.next(null);
     return this.afAuth.signOut();
   }
-
-  get currentUser$(): Observable<firebase.User | null> {
-    return this.afAuth.authState;
-  }
-
-  get currentUser(): firebase.User | null {
-    return this._user;
-  }
-
-  // 👇 Called at app startup
 
   initAuth(): Promise<void> {
     return new Promise((resolve) => {
       this.afAuth.onAuthStateChanged((user) => {
-        this._user = user;
-
+        this.userSubject$.next(user);
         resolve();
       });
     });
