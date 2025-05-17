@@ -32,11 +32,25 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-      - name: Update package.json version
+      - name: Set version in package.json from Git tag
         run: |
-          jq --arg v "$VERSION" '.version=$v' package.json > tmp.$$.json && mv tmp.$$.json package.json
-          cat package.json
-          
+            if [[ "$RUNNER_OS" == "Windows" ]]; then
+            pwsh -Command "
+            \$version = '\${GITHUB_REF}' -replace '^refs/tags/v', '';
+            \$json = Get-Content package.json | ConvertFrom-Json;
+            \$json.version = \$version;
+            \$json | ConvertTo-Json -Depth 100 | Set-Content package.json
+            "
+            else
+            VERSION="${GITHUB_REF#refs/tags/v}"
+            jq --arg v "$VERSION" '.version=$v' package.json > tmp.$$.json && mv tmp.$$.json package.json
+            fi
+            else
+            VERSION="${GITHUB_REF##*/v}"
+            jq --arg v "$VERSION" '.version=$v' package.json > tmp.$$.json && mv tmp.$$.json package.json
+            fi
+        shell: bash
+
       - name: Build and Publish
         run: npx electron-builder --publish always
         env:
