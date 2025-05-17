@@ -7,7 +7,11 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
     defaults:
       run:
         working-directory: ./desktop
@@ -24,8 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build and release
+      - name: Build and Publish
         run: npx electron-builder --publish always
         env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
