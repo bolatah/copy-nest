@@ -25,6 +25,7 @@ jobs:
         run: npm install
 
       - name: Build and release
-        uses: electron-builder/action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: npx electron-builder --publish always
+        env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
