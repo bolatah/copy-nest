@@ -31,12 +31,13 @@
       }
     ],
     "win": {
-       "icon": "assets/icons/icon.ico",
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "build/icon.ico"
     },
     "linux": {
-       "icon": "assets/icons/icon.png",
-      "target": "AppImage"
+      "target": "AppImage",
+      "icon": "build/icon.png",
+      "category": "Utility"
     }
   },
   "repository": {
