@@ -31,9 +31,11 @@
       }
     ],
     "win": {
+       "icon": "assets/icons/icon.ico",
       "target": "nsis"
     },
     "linux": {
+       "icon": "assets/icons/icon.png",
       "target": "AppImage"
     }
   },
