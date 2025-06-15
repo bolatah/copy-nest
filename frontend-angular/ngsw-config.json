@@ -42,22 +42,5 @@
         ]
       }
     }
-  ],
-  "dataGroups": [
-    {
-      "name": "api-cache",
-      "urls": [
-        "/api/nests",
-        "/api/nests/**",
-        "https://copy-nest-56e1ca9f4c40.herokuapp.com/api/nests",
-        "https://copy-nest-56e1ca9f4c40.herokuapp.com/api/nests/**"
-      ],
-      "cacheConfig": {
-        "strategy": "performance",
-        "maxSize": 50,
-        "maxAge": "1d",
-        "timeout": "30s"
-      }
-    }
   ]
 }
