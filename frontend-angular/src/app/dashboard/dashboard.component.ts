@@ -85,6 +85,7 @@ export class DashboardComponent {
     if (!this.selectedNest$.value) {
       this.setActiveNestWithoutEmit();
     }
+    
   }
 
   ngAfterViewInit(): void {
@@ -139,9 +140,17 @@ export class DashboardComponent {
     this.selectedNest$.next(null);
     this.router.navigate(['/login']);
      if ('caches' in window) {
-    caches.keys().then((names) => {
-      names.forEach((name) => caches.delete(name));
-    });
-  }
+          caches.keys().then(keys => {
+            keys.forEach(key => {
+              if (key.includes('api-cache')) {
+                caches.delete(key).then(deleted => {
+                  if (deleted) {
+                    console.log(`Cache '${key}' wurde gelöscht`);
+                  }
+                });
+              }
+            });
+          });
+        }
   }
 }
