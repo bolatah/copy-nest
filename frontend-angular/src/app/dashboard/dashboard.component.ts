@@ -138,5 +138,10 @@ export class DashboardComponent {
     this.authService.logout();
     this.selectedNest$.next(null);
     this.router.navigate(['/login']);
+     if ('caches' in window) {
+    caches.keys().then((names) => {
+      names.forEach((name) => caches.delete(name));
+    });
+  }
   }
 }

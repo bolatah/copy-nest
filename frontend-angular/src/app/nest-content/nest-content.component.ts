@@ -39,7 +39,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class NestContentComponent implements OnChanges {
   @Input() nest: Nest | null = null;
   @Output() nestChanged = new EventEmitter<Nest>();
-  // @ViewChild('editorRef') editorComponent: any;
   title: string = '';
   content: string = '';
 
@@ -94,7 +93,7 @@ export class NestContentComponent implements OnChanges {
   }
 
   adjustEditorHeight(event: any): void {
-    const editorElem = event.editor?.root;
+    const editorElem = event.editor?.root || event?.root;
     if (editorElem) {
       editorElem.style.height = 'auto';
       editorElem.style.height = editorElem.scrollHeight + 'px';
