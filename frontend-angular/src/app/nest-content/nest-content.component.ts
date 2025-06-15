@@ -31,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './nest-content.component.html',
   styleUrls: ['./nest-content.component.css'],
@@ -39,13 +39,13 @@ import { MatIconModule } from '@angular/material/icon';
 export class NestContentComponent implements OnChanges {
   @Input() nest: Nest | null = null;
   @Output() nestChanged = new EventEmitter<Nest>();
-  @ViewChild('editorRef') editorComponent: any;
+  // @ViewChild('editorRef') editorComponent: any;
   title: string = '';
   content: string = '';
 
   constructor(
     private nestService: NestService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,8 +54,7 @@ export class NestContentComponent implements OnChanges {
       this.content = this.nest.content;
     }
   }
- 
-  
+
   saveNest() {
     if (!this.title.trim()) {
       this.snackBar.open('Please fill in the required fields.', 'Close', {
@@ -89,18 +88,16 @@ export class NestContentComponent implements OnChanges {
             panelClass: ['snackbar-error'],
           });
           console.error('Error saving nest:', error);
-        }
+        },
       });
-    } 
-  
+    }
   }
 
-
-adjustEditorHeight(event: any): void {
-  const editorElem = event.editor?.root;
-  if (editorElem) {
-    editorElem.style.height = 'auto';
-    editorElem.style.height = editorElem.scrollHeight + 'px'; 
+  adjustEditorHeight(event: any): void {
+    const editorElem = event.editor?.root;
+    if (editorElem) {
+      editorElem.style.height = 'auto';
+      editorElem.style.height = editorElem.scrollHeight + 'px';
+    }
   }
-}
 }

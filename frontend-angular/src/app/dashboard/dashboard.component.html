@@ -28,10 +28,10 @@
       <mat-list-item [ngClass]="{
         'selected-nest': (selectedNest$ | async)?.id === nest.id,
         'list-item': true
-      }" (click)="setActiveNest(nest); $event.stopPropagation()">
+      }" (click)="setActiveNest(nest);">
         <div class="flex items-center justify-between w-full px-2 py-3">
           <span class="truncate max-w-[160px] inline-block align-bottom" [title]="nest.title">{{ nest.title }}</span>
-          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="setActiveNest(nest); $event.stopPropagation()">
+          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()" title="More Options">
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>
