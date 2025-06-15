@@ -42,5 +42,11 @@
         ]
       }
     }
+  ],
+  "navigationUrls": [
+    "/**",
+    "!/**/*.+(css|js|svg|ico|png|jpg|jpeg|webp|avif|ttf|woff|woff2|json)",
+    "!/api/**",
+    "!/offline.html"
   ]
 }

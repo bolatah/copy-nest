@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1750014705369,
+  "timestamp": 1750016423808,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -17,11 +17,11 @@
         "/chunk-R7MMVOFE.js",
         "/favicon.ico",
         "/index.html",
-        "/main-POYGDBPX.js",
+        "/main-5UQ4C4JN.js",
         "/manifest.webmanifest",
         "/offline.html",
         "/polyfills-FFHMD2TL.js",
-        "/styles-WOVGJ4V7.css"
+        "/styles-7FMEUNDW.css"
       ],
       "patterns": []
     },
@@ -52,12 +52,12 @@
     "/favicon-96x96.png": "c97fa2d2e6f282e1749efcf68dd2da02b2eb0487",
     "/favicon.ico": "44a6cff47148ab61f3abc51d232e7446e070f503",
     "/favicon.svg": "8c7bf903892c2ff619660abd32a9c65e974dd14d",
-    "/index.html": "9611089a69842f795d3e06efcd13165d0f12904c",
-    "/main-POYGDBPX.js": "f0ee4dc134f9899d1e440382457aa54a0a7bb153",
+    "/index.html": "6fa31dafa61b288e61b9894fc3b695d1832817d8",
+    "/main-5UQ4C4JN.js": "3995e505114f290c0eec1e9986d1e87f147dff3c",
     "/manifest.webmanifest": "1842d8985938a0d6217b34e97904d579c1df5900",
     "/offline.html": "80c3841386256d4ef68ed98b7f1da5cd475070c5",
     "/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
-    "/styles-WOVGJ4V7.css": "41aa450b8a30df0248fca4e399c3a9d382d05f67",
+    "/styles-7FMEUNDW.css": "c1acd4a3b4394a5123bb2279f4d6359e724221f4",
     "/web-app-manifest-192x192.png": "42bf5316bfde199960b7be2531f5634a7470c029",
     "/web-app-manifest-512x512.png": "9f08b2a805d71122fd278577109ccd6a3584184c"
   },
@@ -68,15 +68,15 @@
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.\\+(css|js|svg|ico|png|jpg|jpeg|webp|avif|ttf|woff|woff2|json)$"
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+      "regex": "^\\/api\\/.*$"
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+      "regex": "^\\/offline\\.html$"
     }
   ],
   "navigationRequestStrategy": "performance"

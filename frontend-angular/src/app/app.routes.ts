@@ -7,10 +7,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent }, // Public
-    { path: 'privacy-policy', component: PrivacyPolicyComponent }, // Public
-    { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] }, 
-    { path: 'offline', component: OfflineComponent, canActivate: [authGuard] }, // Private
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: '**', redirectTo: 'login' }
+  { path: 'login', component: LoginComponent }, // Public
+  { path: 'privacy-policy', component: PrivacyPolicyComponent }, // Public
+  { path: 'offline', component: OfflineComponent }, // Public
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  }, // Private
+  { path: 'offline', component: OfflineComponent, canActivate: [authGuard] }, // Private
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' },
 ];

@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './offline.component.css'
 })
 export class OfflineComponent {
-
+  reloadPage() {
+    window.location.reload();
+  }
 }
