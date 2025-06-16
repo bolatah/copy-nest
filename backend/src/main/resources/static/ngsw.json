@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1750016423808,
+  "timestamp": 1750064834845,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -68,7 +68,7 @@
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*\\.\\+(css|js|svg|ico|png|jpg|jpeg|webp|avif|ttf|woff|woff2|json)$"
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
     },
     {
       "positive": false,
@@ -76,7 +76,7 @@
     },
     {
       "positive": false,
-      "regex": "^\\/offline\\.html$"
+      "regex": "^\\/assets\\/.*$"
     }
   ],
   "navigationRequestStrategy": "performance"
