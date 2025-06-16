@@ -71,17 +71,13 @@ public class FrontendController {
                 .body(manifest);
     }
 
-    // ✅ Forward all non-static routes to index.html (Angular routing support)
-    @RequestMapping({
-        "/{path:^(?!ngsw\\.json$|ngsw-worker\\.js$|manifest\\.webmanifest$|assets/|.*\\..+$).*$}",
-        "/**/{path:^(?!ngsw\\.json$|ngsw-worker\\.js$|manifest\\.webmanifest$|assets/|.*\\..+$).*$}"
-    })
-    public ResponseEntity<Resource> forwardToIndexHtml() {
-        Resource indexHtml = new ClassPathResource("index.html");
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.TEXT_HTML)
-                .cacheControl(CacheControl.noStore())
-                .body(indexHtml);
+       // IMPORTANT: Forward all unknown routes (no extension) to index.html
+    @RequestMapping(value = {
+        "/{path:^(?!api|static|assets|ngsw-worker\\.js|ngsw\\.json|manifest\\.webmanifest|.*\\..*).*}",
+        "/**/{path:^(?!api|static|assets|ngsw-worker\\.js|ngsw\\.json|manifest\\.webmanifest|.*\\..*).*}"
+    })
+    public String redirect() {
+        return "forward:/";
     }
 }
