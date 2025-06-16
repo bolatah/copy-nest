@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1750077853592,
+  "timestamp": 1750081030105,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -42,22 +42,7 @@
       "patterns": []
     }
   ],
-  "dataGroups": [
-    {
-      "name": "manifest",
-      "patterns": [
-        "\\/manifest\\.webmanifest"
-      ],
-      "strategy": "freshness",
-      "maxSize": 1,
-      "maxAge": 86400000,
-      "timeoutMs": 10000,
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "version": 1
-    }
-  ],
+  "dataGroups": [],
   "hashTable": {
     "/apple-touch-icon.png": "e46b1e8ca10d4253b6cdfedd8866cf263db64255",
     "/chunk-5H3VWYL3.js": "5483739e1a2e0da65bfa9e62c258615c49595ee0",
