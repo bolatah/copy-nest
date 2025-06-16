@@ -77,7 +77,7 @@ public class FrontendController {
         "/**/{path:^(?!ngsw\\.json$|ngsw-worker\\.js$|manifest\\.webmanifest$|assets/|.*\\..+$).*$}"
     })
     public ResponseEntity<Resource> forwardToIndexHtml() {
-        Resource indexHtml = new ClassPathResource("static/index.html");
+        Resource indexHtml = new ClassPathResource("index.html");
 
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_HTML)
