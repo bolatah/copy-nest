@@ -17,7 +17,7 @@ public class FrontendController {
     // ✅ Serve index.html with long-term cache headers
     @GetMapping(value = "/", produces = "text/html")
     public ResponseEntity<Resource> serveIndexWithCacheHeaders() {
-        Resource indexHtml = new ClassPathResource("static/index.html");
+        Resource indexHtml = new ClassPathResource("index.html");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.maxAge(30, TimeUnit.DAYS).cachePublic());
