@@ -43,6 +43,18 @@
       }
     }
   ],
+   "dataGroups": [
+    {
+      "name": "manifest",
+      "urls": ["/manifest.webmanifest"],
+      "cacheConfig": {
+        "maxSize": 1,
+        "maxAge": "1d",
+        "timeout": "10s",
+        "strategy": "freshness"
+      }
+    }
+  ],
  "navigationUrls": [
     "/**",
     "!/**/*.*",
