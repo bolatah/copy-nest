@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class FrontendController {
 
-    // Serve index.html with cache headers
+    // ✅ Serve index.html for root
     @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Resource> serveIndex() {
         Resource indexHtml = new ClassPathResource("static/index.html");
@@ -29,21 +29,21 @@ public class FrontendController {
                 .body(indexHtml);
     }
 
-    // Serve ngsw-worker.js with correct MIME type
+    // ✅ Serve ngsw-worker.js with correct MIME type
     @GetMapping("/ngsw-worker.js")
     public ResponseEntity<Resource> serveServiceWorker() {
         Resource worker = new ClassPathResource("static/ngsw-worker.js");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noStore());
-        headers.setContentType(MediaType.valueOf("application/javascript"));
+        headers.setContentType(MediaType.valueOf("text/javascript"));
 
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(worker);
     }
 
-    // Serve ngsw.json with correct MIME type
+    // ✅ Serve ngsw.json
     @GetMapping("/ngsw.json")
     public ResponseEntity<Resource> serveNgswJson() {
         Resource ngswJson = new ClassPathResource("static/ngsw.json");
@@ -57,7 +57,7 @@ public class FrontendController {
                 .body(ngswJson);
     }
 
-    // Serve manifest.webmanifest with correct MIME type
+    // ✅ Serve manifest.webmanifest
     @GetMapping("/manifest.webmanifest")
     public ResponseEntity<Resource> serveManifest() {
         Resource manifest = new ClassPathResource("static/manifest.webmanifest");
@@ -71,12 +71,17 @@ public class FrontendController {
                 .body(manifest);
     }
 
-    // Forward all routes that are not static assets to index.html
-    @RequestMapping(value = {
+    // ✅ Forward all non-static routes to index.html (Angular routing support)
+    @RequestMapping({
         "/{path:^(?!ngsw\\.json$|ngsw-worker\\.js$|manifest\\.webmanifest$|assets/|.*\\..+$).*$}",
         "/**/{path:^(?!ngsw\\.json$|ngsw-worker\\.js$|manifest\\.webmanifest$|assets/|.*\\..+$).*$}"
     })
-    public String forwardToIndex() {
-        return "forward:/index.html";
+    public ResponseEntity<Resource> forwardToIndexHtml() {
+        Resource indexHtml = new ClassPathResource("static/index.html");
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_HTML)
+                .cacheControl(CacheControl.noStore())
+                .body(indexHtml);
     }
 }
