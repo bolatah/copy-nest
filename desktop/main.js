@@ -10,7 +10,7 @@ app.disableHardwareAcceleration();
 let win;
 
 function createWindow() {
-  const indexPath = "https://copy-nest-56e1ca9f4c40.herokuapp.com/";
+  const indexPath = "https://copy-nest-frontend-0eb215f6fc6a.herokuapp.com/";
 
    win = new BrowserWindow({
     width: 1200,

@@ -29,28 +29,22 @@ public class FirebaseAuthFilter extends OncePerRequestFilter {
 
         String header = request.getHeader(HEADER);
         
-        // If the header is present and starts with the Bearer prefix
         if (header != null && header.startsWith(PREFIX)) {
             String token = header.replace(PREFIX, "");
             System.out.println("filter is initialized");
 
             try {
-                // Verify the Firebase token
                 FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-                // Set the decoded token as an attribute in the request
                 request.setAttribute("firebaseUser", decodedToken);
 
-                // Set the authentication object in the SecurityContext for Spring Security
                 UsernamePasswordAuthenticationToken authentication = 
                         new UsernamePasswordAuthenticationToken(
                                 decodedToken.getEmail(), null, Collections.emptyList());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // Set authentication in the security context
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
             } catch (Exception e) {
-                // If there's any error, return an Unauthorized response
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Invalid Firebase Token: " + e.getMessage());
                 return;

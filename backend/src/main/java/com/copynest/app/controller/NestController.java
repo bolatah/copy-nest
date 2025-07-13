@@ -9,12 +9,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/nests")
+
 public class NestController {
 
     private final NestService nestService;
@@ -23,48 +25,42 @@ public class NestController {
         this.nestService = nestService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Nest>> getUserNests(HttpServletRequest request) {
+    private String getUidFromRequest(HttpServletRequest request) {
         FirebaseToken token = (FirebaseToken) request.getAttribute("firebaseUser");
         if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
         }
-        String uid = token.getUid();
+        return token.getUid();
+
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Nest>> getUserNests(HttpServletRequest request) {
+        String uid = getUidFromRequest(request);
         List<Nest> userNests = nestService.getNestsByUid(uid);
         return ResponseEntity.ok(userNests);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Nest> getNestById(@PathVariable String id, HttpServletRequest request) {
-        FirebaseToken token = (FirebaseToken) request.getAttribute("firebaseUser");
-        if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        String uid = token.getUid();
+        String uid = getUidFromRequest(request);
         Optional<Nest> nest = nestService.getNestByIdForUser(id, uid);
         return nest.map(ResponseEntity::ok)
-                   .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping
     public ResponseEntity<Nest> createNest(@RequestBody Nest nest, HttpServletRequest request) {
-        FirebaseToken token = (FirebaseToken) request.getAttribute("firebaseUser");
-        if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        String uid = token.getUid();
-        nest.setUid(uid); // Set UID before saving
+        String uid = getUidFromRequest(request);
+        nest.setUid(uid);
         Nest createdNest = nestService.saveNest(nest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNest);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Nest> updateNest(@PathVariable String id, @RequestBody Nest nest, HttpServletRequest request) {
-        FirebaseToken token = (FirebaseToken) request.getAttribute("firebaseUser");
-        if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        String uid = token.getUid();
+    public ResponseEntity<Nest> updateNest(@PathVariable String id, @RequestBody Nest nest,
+            HttpServletRequest request) {
+        String uid = getUidFromRequest(request);
         Nest updatedNest = nestService.updateNestForUser(id, nest, uid);
         if (updatedNest != null) {
             return ResponseEntity.ok(updatedNest);
@@ -75,11 +71,7 @@ public class NestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNest(@PathVariable String id, HttpServletRequest request) {
-        FirebaseToken token = (FirebaseToken) request.getAttribute("firebaseUser");
-        if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        String uid = token.getUid();
+        String uid = getUidFromRequest(request);
         boolean isDeleted = nestService.deleteNestForUser(id, uid);
         if (isDeleted) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

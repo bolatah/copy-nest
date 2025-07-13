@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NestRepository extends MongoRepository<Nest, String> {
-    // You can define custom query methods here if necessary
     List<Nest> findByUid(String uid);
-
     Optional<Nest> findByIdAndUid(String id, String uid);
 }

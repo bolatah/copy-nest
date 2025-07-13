@@ -25,10 +25,8 @@ public class FirebaseAdminConfig {
             String configJson = System.getenv("CONFIG_JSON");
 
             if (configJson != null && !configJson.isBlank()) {
-                System.out.println("🌐 Using Firebase credentials from CONFIG_JSON environment variable.");
                 credentialsStream = new ByteArrayInputStream(configJson.getBytes());
             } else {
-                System.out.println("📁 Using Firebase credentials from application.properties file path.");
                 credentialsStream = firebaseCredentialsResource.getInputStream();
             }
 
@@ -40,10 +38,9 @@ public class FirebaseAdminConfig {
                 FirebaseApp.initializeApp(options);
             }
 
-            System.out.println("✅ Firebase initialized successfully.");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("❌ Failed to initialize Firebase Admin SDK.");
+
         }
     }
 }

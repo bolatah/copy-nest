@@ -5,8 +5,6 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "postbuild": "npm run copy-to-spring",
-    "copy-to-spring": "rm -rf ../backend/src/main/resources/static/* && cp -r dist/copy-nest/browser/* ../backend/src/main/resources/static/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

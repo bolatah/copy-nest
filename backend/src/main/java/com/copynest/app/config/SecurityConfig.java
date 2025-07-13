@@ -28,15 +28,17 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> allowedOrigins = Arrays.asList(
-                "http://localhost:4200", // Angular dev server on local machine
-                "http://localhost:8080", // Built Angular app on local machine
-                "http://192.168.159.197:4200", // Accessing Angular dev server from mobile device
-                "http://192.168.159.197:8800", // Accessing built Angular app from mobile (if served on 8800)
-                "http://10.0.2.2:4200", // Android Emulator (maps to host)
-                "capacitor://localhost", // Capacitor WebView,
-                "https://localhost", // Required for secure origin on physical Android device
+                "http://localhost:4200", 
+                "http://localhost:8080", 
+                "http://192.168.159.197:4200", 
+                "http://192.168.159.197:8800", 
+                "http://10.0.2.2:4200", 
+                "capacitor://localhost", 
+                "https://localhost",
                 "https://localhost:4200",
-                "https://copy-nest-56e1ca9f4c40.herokuapp.com");
+                "https://copy-nest-backend-aba59dd17789.herokuapp.com/",
+                "https://copy-nest-frontend-0eb215f6fc6a.herokuapp.com/"
+                );
         configuration.setAllowedOrigins(allowedOrigins);
 
         configuration.addAllowedMethod("*");
@@ -56,23 +58,6 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/",
-                                "/index.html",
-                                "/favicon.ico",
-                                "/favicon.svg",
-                                "/assets/**",
-                                "/*.js",
-                                "/*.css",
-                                "/*.woff2", "/*.woff", "/*.ttf", "/*.eot",
-                                "/manifest.json",
-                                "/manifest.webmanifest",
-                                "*.webmanifest",
-                                "/ngsw.json",    
-                                "/ngsw-worker.js",
-                                "/**/*.js", "/**/*.css",
-                                "/{path:[^\\.]*}", "/**/{path:[^\\.]*}")
-                        .permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(firebaseAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
