@@ -1,87 +1,59 @@
-
 # CopyNest
 
-CopyNest is a Progressive Web Application (PWA) designed to manage "Nests" with editable content. It integrates Firebase Authentication with Google Sign-In and email/password providers for user authentication and verification. The backend is built with Spring Boot and uses MongoDB for data storage.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
 
-## Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Authentication](#authentication)
-- [Tech Stack](#tech-stack)
-- [API](#api)
-- [Contributing](#contributing)
-- [License](#license)
+## Development server
 
-## Features
-- User authentication via Firebase (Google Sign-In, Email/Password)
-- Create, Read, Update, and Delete (CRUD) operations for "Nests"
-- MongoDB Atlas Vector Database for data management
-- Angular PWA frontend with a responsive UI
+To start a local development server, run:
 
-## Installation
+```bash
+ng serve
+```
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (for Angular)
-- [Java 17+](https://adoptopenjdk.net/) (for Spring Boot)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (for database)
-- [Firebase Project](https://firebase.google.com/) (for authentication)
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-### Backend Setup (Spring Boot)
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/bolatah/copy-nest.git
-   cd copy-nest/backend
-   ```
-2. Add your Firebase credentials and MongoDB connection details in `application.properties` or `application.yml`.
-3. Build and run the backend:
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-4. Ensure the backend is running on a specified port (e.g., `http://localhost:8080`).
+## Code scaffolding
 
-### Frontend Setup (Angular)
-1. Navigate to the frontend-angular directory:
-   ```bash
-   cd copy-nest/frontend-angular
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Serve the Angular application:
-   ```bash
-   ng serve
-   ```
-4. Visit `http://localhost:4200` in your browser to access the app.
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-## Usage
-Once the app is running:
-- **Login**: Use Google Sign-In or email/password to authenticate.
-- **Manage Nests**: Create, edit, and delete Nests. Each Nest has a name and content.
+```bash
+ng generate component component-name
+```
 
-## Authentication
-- Firebase Authentication is used for securing the application. After successful login, users can perform CRUD operations on their Nests.
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-## Tech Stack
-- **Frontend**: Angular 17, Firebase Authentication, PWA
-- **Backend**: Java Spring Boot, MongoDB Atlas
-- **Database**: MongoDB Atlas Vector Database
+```bash
+ng generate --help
+```
 
-## API
+## Building
 
-### Nest API
-- **GET** `/api/nests`: Retrieve all Nests for the authenticated user.
-- **POST** `/api/nests`: Create a new Nest.
-- **PUT** `/api/nests/{id}`: Update a Nest by ID.
-- **DELETE** `/api/nests/{id}`: Delete a Nest by ID.
+To build the project run:
 
-## Contributing
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/your-feature`.
-3. Make changes and commit them: `git commit -am 'Add new feature'`.
-4. Push the branch: `git push origin feature/your-feature`.
-5. Create a pull request.
+```bash
+ng build
+```
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
