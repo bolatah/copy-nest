@@ -45,3 +45,6 @@ environment.prod.ts
 capacitor.config.ts
 android
 settings.json
+target
+dist
+node_modules
