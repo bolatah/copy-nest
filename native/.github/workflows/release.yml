@@ -1,0 +1,53 @@
+name: Build and Release Electron App
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # e.g., v1.0.0
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    defaults:
+      run:
+        working-directory: ./desktop
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+    
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Update version in package.json on Linux/macOS
+        if: runner.os != 'Windows'
+        run: |
+            VERSION="${GITHUB_REF#refs/tags/v}"
+            jq --arg v "$VERSION" '.version=$v' package.json > tmp.json && mv tmp.json package.json
+
+      - name: Update version in package.json on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+            $version = $env:GITHUB_REF -replace '^refs/tags/v', ''
+            $json = Get-Content package.json | ConvertFrom-Json
+            $json.version = $version
+            $json | ConvertTo-Json -Depth 100 | Set-Content package.json
+
+      - name: Build and Publish
+        run: npx electron-builder --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
