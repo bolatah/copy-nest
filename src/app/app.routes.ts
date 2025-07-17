@@ -10,12 +10,21 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Public
   { path: 'privacy-policy', component: PrivacyPolicyComponent }, // Public
   { path: 'offline', component: OfflineComponent }, // Public
+
   {
     path: 'dashboard',
     component: DashboardComponent,
+    children: [
+      {
+        path: 'nest/:id',
+        component: NestContentComponent,
+      },
+        
+    ],
     canActivate: [authGuard],
   }, // Private
-//  { path: 'offline', component: OfflineComponent, canActivate: [authGuard] }, // Private
+  // { path: 'dashboard/nest/:id', component: NestContentComponent, canActivate: [authGuard] }, // Private
+  //  { path: 'offline', component: OfflineComponent, canActivate: [authGuard] }, // Private
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];

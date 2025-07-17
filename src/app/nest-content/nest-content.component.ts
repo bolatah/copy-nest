@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { QuillModule } from 'ngx-quill';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nest-content',
@@ -38,20 +39,40 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NestContentComponent implements OnChanges {
   @Input() nest: Nest | null = null;
-  @Output() nestChanged = new EventEmitter<Nest>();
   title: string = '';
   content: string = '';
 
   constructor(
     private nestService: NestService,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
+  ) {
+  }
+
+  
+ngOnInit(): void {
+  this.route.paramMap.subscribe(paramMap => {
+    const id = paramMap.get('id');
+    if (id) {
+      this.nestService.getNestById(id).subscribe(nest => {
+        this.nest = nest;
+        this.title = nest.title;
+        this.content = nest.content;
+      });
+    }
+  });
+}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['nest'] && this.nest) {
       this.title = this.nest.title;
       this.content = this.nest.content;
     }
+  }
+
+  hasChanges(): boolean {
+    if (!this.nest) return false;
+    return this.title !== this.nest.title || this.content !== this.nest.content;
   }
 
   saveNest() {
@@ -79,7 +100,6 @@ export class NestContentComponent implements OnChanges {
           });
           const updated = { id, ...updatedNest };
           this.nest = updated;
-          this.nestChanged.emit(updated);
         },
         error: (error) => {
           this.snackBar.open('Error saving nest!', 'Close', {
@@ -98,5 +118,28 @@ export class NestContentComponent implements OnChanges {
       editorElem.style.height = 'auto';
       editorElem.style.height = editorElem.scrollHeight + 'px';
     }
+  }
+
+  deleteNest(): void {
+    if (!this.nest?.id) return;
+
+    this.nestService.deleteNest(this.nest.id).subscribe({
+      next: () => {
+        this.snackBar.open('Nest deleted successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['snackbar-success'],
+        });
+        this.nest = null;
+        this.title = '';
+        this.content = '';
+      },
+      error: (error) => {
+        this.snackBar.open('Error deleting nest!', 'Close', {
+          duration: 3000,
+          panelClass: ['snackbar-error'],
+        });
+        console.error('Error deleting nest:', error);
+      },
+    });
   }
 }

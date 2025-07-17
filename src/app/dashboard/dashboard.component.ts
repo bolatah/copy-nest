@@ -1,14 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
@@ -28,8 +22,8 @@ import {
   take,
 } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { NestContentComponent } from '../nest-content/nest-content.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-dashboard',
   imports: [
@@ -44,8 +38,8 @@ import { AsyncPipe, CommonModule } from '@angular/common';
     MatMenuModule,
     MatButtonModule,
     ReactiveFormsModule,
-    NestContentComponent,
     AsyncPipe,
+    RouterOutlet,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -55,17 +49,22 @@ export class DashboardComponent {
   selectedNest$ = new BehaviorSubject<Nest | null>(null);
   filteredNests$!: Observable<Nest[]>;
   opened: boolean = true;
+  isSmallScreen: boolean = false;
 
   constructor(
     private nestService: NestService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+     private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
-    if (window.innerWidth < 640) {
-      this.opened = false;
-    }
+    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall])
+    .subscribe(result => {
+      this.isSmallScreen = result.matches;
+      this.opened = !this.isSmallScreen;
+    });
     this.filteredNests$ = combineLatest([
       this.nestService.nests$,
       this.searchControl.valueChanges.pipe(
@@ -85,17 +84,16 @@ export class DashboardComponent {
     if (!this.selectedNest$.value) {
       this.setActiveNestWithoutEmit();
     }
-    
   }
 
-  ngAfterViewInit(): void {
-    window.addEventListener('resize', () => {
-      this.opened = window.innerWidth >= 640;
-    });
-  }
+
 
   setActiveNest(nest: Nest): void {
-    this.selectedNest$.next(nest);
+    this.router
+      .navigate(['nest', nest.id], { relativeTo: this.route })
+      .then(() => {
+        this.selectedNest$.next(nest);
+      });
     if (this.opened && window.innerWidth < 640) {
       this.opened = false;
     }
