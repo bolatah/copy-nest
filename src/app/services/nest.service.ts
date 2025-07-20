@@ -19,7 +19,7 @@ export class NestService {
   public nests$ = this.nestsSubject.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.authService.user$.subscribe((user) => {
+ /*    this.authService.user$.subscribe((user) => {
       if (user) {
         this.getAllNests().subscribe((nests) => {
           this.nestsSubject.next(nests.reverse());
@@ -27,7 +27,7 @@ export class NestService {
       } else {
         this.nestsSubject.next([]);
       }
-    });
+    }); */
   }
 
   getAllNests(): Observable<Nest[]> {
@@ -66,5 +66,9 @@ export class NestService {
         this.nestsSubject.next(updatedNests);
       })
     );
+  }
+
+  updateNests(nests: Nest[]) {
+    this.nestsSubject.next(nests);
   }
 }

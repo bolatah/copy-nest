@@ -65,6 +65,14 @@ export class DashboardComponent {
       this.isSmallScreen = result.matches;
       this.opened = !this.isSmallScreen;
     });
+
+    this.route.data
+    .pipe(take(1))
+    .subscribe(data => {
+      const resolvedNests = data['allNests'] as Nest[];
+       this.nestService.updateNests(resolvedNests.reverse());
+    });
+
     this.filteredNests$ = combineLatest([
       this.nestService.nests$,
       this.searchControl.valueChanges.pipe(
@@ -136,6 +144,7 @@ export class DashboardComponent {
   logout() {
     this.authService.logout();
     this.selectedNest$.next(null);
+    this.nestService.updateNests([]);
     this.router.navigate(['/login']);
   }
 }

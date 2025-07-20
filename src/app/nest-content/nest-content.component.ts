@@ -51,17 +51,17 @@ export class NestContentComponent implements OnChanges {
 
   
 ngOnInit(): void {
-  this.route.paramMap.subscribe(paramMap => {
-    const id = paramMap.get('id');
-    if (id) {
-      this.nestService.getNestById(id).subscribe(nest => {
-        this.nest = nest;
-        this.title = nest.title;
-        this.content = nest.content;
-      });
-    }
-  });
-}
+  this.route.data.subscribe(data => {
+      const resolvedNest = data['nest'];
+      console.log('Resolved Nest:', resolvedNest);
+      if (resolvedNest) {
+        this.nest = resolvedNest;
+        this.title = resolvedNest.title;
+        this.content = resolvedNest.content;
+      }
+    });
+  }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['nest'] && this.nest) {

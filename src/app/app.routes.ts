@@ -14,17 +14,21 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    resolve: {
+      allNests: 'allNestsResolver',
+    },
     children: [
       {
         path: 'nest/:id',
         component: NestContentComponent,
+        resolve: {
+          nest: 'nestByIdResolver',
+        },
       },
-        
     ],
     canActivate: [authGuard],
   }, // Private
-  // { path: 'dashboard/nest/:id', component: NestContentComponent, canActivate: [authGuard] }, // Private
-  //  { path: 'offline', component: OfflineComponent, canActivate: [authGuard] }, // Private
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];

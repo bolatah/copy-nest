@@ -8,7 +8,7 @@ app.use(express.static(distFolder));
 
 app.get('/{*any}', (req, res) => {
   console.log(`Serving route: ${req.method} ${req.originalUrl}`);
-  res.sendFile(path.join(distFolder, 'index.html'));
+  res.red(path.join(distFolder, 'index.html'));
 });
 
 const port = process.env.PORT || 8080;

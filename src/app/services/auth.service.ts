@@ -14,11 +14,11 @@ export class AuthService {
     this.initAuth()
   }
 
-  loginWithGoogle(): Promise<any> {
+  loginWithGoogle(): Promise<firebase.auth.UserCredential> {
     return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  logout(): Promise<any> {
+  logout(): Promise<void> {
     this.userSubject$.next(null);
     return this.afAuth.signOut();
   }

@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const configDir = path.resolve(__dirname, '../../', 'config-files');  // one level up
+const configDir = path.resolve(__dirname, '../', 'config-files');  // one level up
 const envDir = path.resolve(__dirname, 'src', 'environments');
 
 const files = ['environment.ts', 'environment.prod.ts'];
