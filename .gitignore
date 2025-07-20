@@ -45,9 +45,10 @@ environment.prod.ts
 capacitor.config.ts
 android
 settings.json
+backend
 target
+frontend
 dist
 node_modules
-environments
 application.properties
 copy-nest-firebase*.json
