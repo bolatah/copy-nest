@@ -66,9 +66,9 @@
         @if (authMode === 'signUp') {
         <div>
             <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
-            <input type="password" formControlName="confirm-password" autocomplete="confirm-password"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" />
-            @if(loginForm.get('confirmPassword')?.invalid && loginForm.get('confirmPassword')?.touched) {
+            <input type="password" formControlName="confirmPassword" autocomplete="confirm-password"
+                class="mt-1 block w-full pl-2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" />
+            @if(loginForm.get('confirm-password')?.invalid && loginForm.get('confirm-password')?.touched) {
             <p class="text-sm text-red-600 mt-1">Confirm Password is required</p>
             }
         </div>
