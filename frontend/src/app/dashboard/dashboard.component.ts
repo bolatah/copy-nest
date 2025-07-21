@@ -19,7 +19,9 @@ import {
   map,
   Observable,
   startWith,
+  Subject,
   take,
+  takeUntil,
 } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -47,6 +49,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class DashboardComponent {
   searchControl = new FormControl('');
   selectedNest$ = new BehaviorSubject<Nest | null>(null);
+  private destroy$ = new Subject<void>();
   filteredNests$!: Observable<Nest[]>;
   opened: boolean = true;
   isSmallScreen: boolean = false;
@@ -56,22 +59,25 @@ export class DashboardComponent {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-     private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
-    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall])
-    .subscribe(result => {
-      this.isSmallScreen = result.matches;
-      this.opened = !this.isSmallScreen;
-    });
+    this.breakpointObserver
+      .observe([Breakpoints.Small, Breakpoints.XSmall])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.isSmallScreen = result.matches;
+        this.opened = !this.isSmallScreen;
+      });
 
     this.route.data
-    .pipe(take(1))
-    .subscribe(data => {
-      const resolvedNests = data['allNests'] as Nest[];
-       this.nestService.updateNests(resolvedNests.reverse());
-    });
+      .pipe(take(1))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        const resolvedNests = data['allNests'] as Nest[];
+        this.nestService.updateNests(resolvedNests.reverse());
+      });
 
     this.filteredNests$ = combineLatest([
       this.nestService.nests$,
@@ -89,12 +95,29 @@ export class DashboardComponent {
       })
     );
 
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
+      .subscribe((query) => {
+        if (this.selectedNest$.value) {
+          this.selectedNest$.next(null);
+          this.router.navigate(['/dashboard'], { relativeTo: this.route });
+        }
+        if (!query || query.trim() === '') {
+          this.setActiveNestWithoutEmit();
+        }
+      });
+
     if (!this.selectedNest$.value) {
-      this.setActiveNestWithoutEmit();
+      const id = this.route.children[0]?.snapshot.params['id'];
+      if (id) {
+        this.nestService.getNestById(id).subscribe((nest) => {
+          this.selectedNest$.next(nest);
+        });
+      } else {
+        this.setActiveNestWithoutEmit();
+      }
     }
   }
-
-
 
   setActiveNest(nest: Nest): void {
     this.router
@@ -146,5 +169,10 @@ export class DashboardComponent {
     this.selectedNest$.next(null);
     this.nestService.updateNests([]);
     this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
