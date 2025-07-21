@@ -41,9 +41,9 @@ export class LoginComponent {
     this.loginError = null;
 
     const password = this.loginForm.get('password');
-    const confirmPassword = this.loginForm.get('confirmPassword');
+    const confirmPassword = this.loginForm.get('confirm-password');
 
-    // Reset validators based on mode
+  
     if (mode === 'signUp') {
       password?.setValidators([Validators.required]);
       confirmPassword?.setValidators([Validators.required]);
@@ -61,9 +61,7 @@ export class LoginComponent {
 
   async submitForm() {
     if (this.loginForm.invalid) return;
-
     const { email, password, confirmPassword } = this.loginForm.value;
-
     try {
       switch (this.authMode) {
         case 'signIn':

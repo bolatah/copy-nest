@@ -18,17 +18,7 @@ export class NestService {
   private nestsSubject = new BehaviorSubject<Nest[]>([]);
   public nests$ = this.nestsSubject.asObservable();
 
-  constructor(private http: HttpClient, private authService: AuthService) {
- /*    this.authService.user$.subscribe((user) => {
-      if (user) {
-        this.getAllNests().subscribe((nests) => {
-          this.nestsSubject.next(nests.reverse());
-        });
-      } else {
-        this.nestsSubject.next([]);
-      }
-    }); */
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAllNests(): Observable<Nest[]> {
     return this.http.get<Nest[]>(this.apiUrl);

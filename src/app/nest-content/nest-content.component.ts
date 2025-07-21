@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { QuillModule } from 'ngx-quill';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-nest-content',
@@ -39,6 +40,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NestContentComponent implements OnChanges {
   @Input() nest: Nest | null = null;
+  private destroy$ = new Subject<void>();
   title: string = '';
   content: string = '';
 
@@ -46,14 +48,11 @@ export class NestContentComponent implements OnChanges {
     private nestService: NestService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
-  
-ngOnInit(): void {
-  this.route.data.subscribe(data => {
+  ngOnInit(): void {
+    this.route.data.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       const resolvedNest = data['nest'];
-      console.log('Resolved Nest:', resolvedNest);
       if (resolvedNest) {
         this.nest = resolvedNest;
         this.title = resolvedNest.title;
@@ -61,7 +60,6 @@ ngOnInit(): void {
       }
     });
   }
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['nest'] && this.nest) {
@@ -92,7 +90,10 @@ ngOnInit(): void {
     if (this.nest?.id) {
       const id = this.nest.id;
 
-      this.nestService.updateNest(id, { id, ...updatedNest }).subscribe({
+      this.nestService.
+      updateNest(id, { id, ...updatedNest })
+       .pipe(takeUntil(this.destroy$))
+      .subscribe({
         next: () => {
           this.snackBar.open('Nest content saved successfully!', 'Close', {
             duration: 3000,
@@ -122,24 +123,30 @@ ngOnInit(): void {
 
   deleteNest(): void {
     if (!this.nest?.id) return;
-
-    this.nestService.deleteNest(this.nest.id).subscribe({
-      next: () => {
-        this.snackBar.open('Nest deleted successfully!', 'Close', {
-          duration: 3000,
-          panelClass: ['snackbar-success'],
-        });
-        this.nest = null;
-        this.title = '';
-        this.content = '';
-      },
-      error: (error) => {
-        this.snackBar.open('Error deleting nest!', 'Close', {
-          duration: 3000,
-          panelClass: ['snackbar-error'],
-        });
-        console.error('Error deleting nest:', error);
-      },
-    });
+    this.nestService
+      .deleteNest(this.nest.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.snackBar.open('Nest deleted successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['snackbar-success'],
+          });
+          this.nest = null;
+          this.title = '';
+          this.content = '';
+        },
+        error: (error) => {
+          this.snackBar.open('Error deleting nest!', 'Close', {
+            duration: 3000,
+            panelClass: ['snackbar-error'],
+          });
+          console.error('Error deleting nest:', error);
+        },
+      });
+  }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
