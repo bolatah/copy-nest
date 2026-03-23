@@ -6,6 +6,10 @@ const distFolder = path.join(__dirname, 'dist/copy-nest/browser');
 
 app.use(express.static(distFolder));
 
+app.get('/privacy-policy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/privacy-policy.html'));
+});
+
 app.get('/{*any}', (req, res) => {
   console.log(`Serving route: ${req.method} ${req.originalUrl}`);
   res.red(path.join(distFolder, 'index.html'));
